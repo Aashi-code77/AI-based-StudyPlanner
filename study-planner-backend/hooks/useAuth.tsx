@@ -35,10 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate checking if user is logged in
     const checkAuth = async () => {
       try {
-        // For demo purposes, check localStorage
         const savedUser = localStorage.getItem('noteplan_user');
         if (savedUser) {
           setUser(JSON.parse(savedUser));
@@ -56,10 +54,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Demo validation
+
       if (email === 'demo@example.com' && password === 'password') {
         setUser(mockUser);
         localStorage.setItem('noteplan_user', JSON.stringify(mockUser));
@@ -76,16 +72,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = async (name: string, email: string, password: string) => {
     setLoading(true);
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const newUser = {
         ...mockUser,
         name,
         email,
         onboarded: false
       };
-      
+
       setUser(newUser);
       localStorage.setItem('noteplan_user', JSON.stringify(newUser));
     } catch (error) {
@@ -110,10 +105,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 // Hook for using auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
-
-export default useAuth;

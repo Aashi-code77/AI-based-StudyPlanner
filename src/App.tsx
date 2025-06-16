@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth, AuthProvider } from './hooks/useAuth';
+import { useAuth, AuthProvider } from '../useAuth';
+
 import Layout from './components/layout/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';

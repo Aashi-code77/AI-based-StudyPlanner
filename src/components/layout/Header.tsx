@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Bell, Settings, User, LogOut, X, AlignJustify } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth';
+import { Bell, Settings, User, LogOut, X, AlignJustify } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,23 +48,24 @@ const Header: React.FC = () => {
           </div>
 
           {/* Mobile menu button */}
-          <button 
-            className="rounded-md p-2 text-gray-600 hover:bg-gray-100 md:hidden" 
+          <button
+            className="rounded-md p-2 text-gray-600 hover:bg-gray-100 md:hidden"
             onClick={toggleMenu}
+            aria-label="Toggle mobile menu"
           >
             {isOpen ? <X size={24} /> : <AlignJustify size={24} />}
           </button>
 
           {/* Desktop navigation */}
           <nav className="hidden items-center space-x-1 md:flex">
-            <Link 
+            <Link
               to="/notifications"
               className="relative rounded-full p-2 text-gray-600 hover:bg-gray-100"
             >
               <Bell size={20} />
               <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-accent-500"></span>
             </Link>
-            <Link 
+            <Link
               to="/settings"
               className="rounded-full p-2 text-gray-600 hover:bg-gray-100"
             >
@@ -74,7 +75,7 @@ const Header: React.FC = () => {
               <div className="flex cursor-pointer items-center space-x-3 rounded-full p-1 hover:bg-gray-100">
                 <div className="h-8 w-8 overflow-hidden rounded-full bg-gray-200">
                   {user?.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
+                    <img src={user.avatar} alt={user.name || 'User avatar'} className="h-full w-full object-cover" />
                   ) : (
                     <User className="h-full w-full p-1 text-gray-500" />
                   )}
@@ -95,7 +96,7 @@ const Header: React.FC = () => {
                   <div className="flex items-center space-x-3 py-2">
                     <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
                       {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
+                        <img src={user.avatar} alt={user.name || 'User avatar'} className="h-full w-full object-cover" />
                       ) : (
                         <User className="h-full w-full p-1 text-gray-500" />
                       )}
@@ -108,26 +109,26 @@ const Header: React.FC = () => {
 
                   <div className="h-px w-full bg-gray-200"></div>
 
-                  <Link to="/dashboard" onClick={closeMenu} className="flex items-center space-x-3 py-3 text-gray-600 hover:text-primary-600">
-                    <span>Dashboard</span>
+                  <Link to="/dashboard" onClick={closeMenu} className="py-3 text-gray-600 hover:text-primary-600">
+                    Dashboard
                   </Link>
-                  <Link to="/planner" onClick={closeMenu} className="flex items-center space-x-3 py-3 text-gray-600 hover:text-primary-600">
-                    <span>Study Planner</span>
+                  <Link to="/planner" onClick={closeMenu} className="py-3 text-gray-600 hover:text-primary-600">
+                    Study Planner
                   </Link>
-                  <Link to="/notifications" onClick={closeMenu} className="flex items-center space-x-3 py-3 text-gray-600 hover:text-primary-600">
-                    <span>Notifications</span>
+                  <Link to="/notifications" onClick={closeMenu} className="py-3 text-gray-600 hover:text-primary-600">
+                    Notifications
                   </Link>
-                  <Link to="/settings" onClick={closeMenu} className="flex items-center space-x-3 py-3 text-gray-600 hover:text-primary-600">
-                    <span>Settings</span>
+                  <Link to="/settings" onClick={closeMenu} className="py-3 text-gray-600 hover:text-primary-600">
+                    Settings
                   </Link>
 
                   <div className="h-px w-full bg-gray-200"></div>
-                  
-                  <button 
+
+                  <button
                     onClick={() => {
                       logout();
                       closeMenu();
-                    }} 
+                    }}
                     className="flex items-center space-x-3 py-3 text-gray-600 hover:text-red-600"
                   >
                     <LogOut size={18} />
